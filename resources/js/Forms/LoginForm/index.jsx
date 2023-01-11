@@ -1,16 +1,17 @@
-import { Inertia } from '@inertiajs/inertia';
-import { usePage } from '@inertiajs/inertia-react';
-import { React, useEffect } from 'react';
-import { Form, Formik, useFormik } from 'formik';
-import { Box, Button, TextField } from '@mui/material';
-import { LoginFormSchema } from './validation.schema';
+import {Inertia} from '@inertiajs/inertia';
+import {usePage} from '@inertiajs/inertia-react';
+import {React, useEffect} from 'react';
+import {useFormik} from 'formik';
+import {Box, Button, TextField} from '@mui/material';
+import {LoginFormSchema} from './validation.schema';
 
 const LoginForm = () => {
   const handleFormSubmit = (values) => {
-    console.log(values);
     Inertia.post('/login', values);
   };
+
   const { errors } = usePage().props;
+
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     onSubmit: handleFormSubmit,
@@ -20,6 +21,7 @@ const LoginForm = () => {
   useEffect(() => {
     for (var error in errors) formik.setFieldError(error, errors[error]);
   }, [errors]);
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Box sx={{ marginBottom: 2 }}>
