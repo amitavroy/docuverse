@@ -27,6 +27,6 @@ class DocumentController extends Controller
             $request->all()
         );
 
-        return redirect()->route('home');
+        return redirect()->route('doc.add');
     }
 }
