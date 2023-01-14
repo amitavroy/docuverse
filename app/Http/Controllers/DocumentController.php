@@ -15,6 +15,14 @@ class DocumentController extends Controller
         private readonly DocumentService $documentService
     ) {}
 
+    public function index(): Response
+    {
+        $documents = $this->documentService->getDocumentList();
+
+        return Inertia::render('Document/DocListPage')
+            ->with('documents', $documents);
+    }
+
     public function add(): Response
     {
         return Inertia::render('Document/AddDocPage');
@@ -28,5 +36,15 @@ class DocumentController extends Controller
         );
 
         return redirect()->route('doc.add');
+    }
+
+    public function delete(Request $request): RedirectResponse
+    {
+        $resp = $this->documentService->deleteDocument(
+            Auth::user(),
+            $request->input('document_id')
+        );
+
+        return redirect()->route('doc.index');
     }
 }

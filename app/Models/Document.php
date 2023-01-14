@@ -16,6 +16,11 @@ class Document extends Model
 
     public $timestamps = ['published_at'];
 
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
     public function creator(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'creator_id');

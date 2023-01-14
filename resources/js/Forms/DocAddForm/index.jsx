@@ -2,7 +2,7 @@ import {useFormik} from "formik";
 import {Box, Button, TextField} from "@mui/material";
 import React, {useEffect} from "react";
 import {Inertia} from "@inertiajs/inertia";
-import {usePage} from "@inertiajs/inertia-react";
+import {Link, usePage} from "@inertiajs/inertia-react";
 
 const DocAddForm = () => {
   const { errors } = usePage().props;
@@ -58,6 +58,8 @@ const DocAddForm = () => {
       >
         Save
       </Button>
+
+      <Button><Link href={route('home')}>Back</Link></Button>
     </Box>
   </form>
 }
