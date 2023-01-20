@@ -1,5 +1,15 @@
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,} from '@mui/material';
-import React, {useEffect, useState} from 'react';
+import { InertiaLink } from '@inertiajs/inertia-react';
+import { DeleteForever, Visibility } from '@mui/icons-material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 function createData(id, title, summary, creator, published_at) {
   return { id, title, summary, creator, published_at };
@@ -30,6 +40,7 @@ const DocumentTable = ({ data }) => {
             <TableCell>Title</TableCell>
             <TableCell>Summary</TableCell>
             <TableCell>Creator</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,6 +50,12 @@ const DocumentTable = ({ data }) => {
               <TableCell>{row.title}</TableCell>
               <TableCell>{row.summary}</TableCell>
               <TableCell>{row.creator.name}</TableCell>
+              <TableCell>
+                <InertiaLink href={route('doc.view', { id: row.id })}>
+                  <Visibility sx={{ marginRight: 1 }} />
+                </InertiaLink>
+                <DeleteForever />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

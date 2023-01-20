@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/document', [DocumentController::class, 'index'])->name('doc.index');
     Route::get('/document/add', [DocumentController::class, 'add'])->name('doc.add');
     Route::post('/document/save', [DocumentController::class, 'store'])->name('doc.store');
+    Route::get('/document/view/{id}', [DocumentController::class, 'view'])->name('doc.view');
     Route::post('/document/delete', [DocumentController::class, 'delete'])->name('doc.delete');
 });
 

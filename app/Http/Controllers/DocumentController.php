@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Services\DocumentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,6 +22,12 @@ class DocumentController extends Controller
 
         return Inertia::render('Document/DocListPage')
             ->with('documents', $documents);
+    }
+
+    public function view(Document $document)
+    {
+        return Inertia::render('Document/DocumentDetailPage')
+            ->with('document', $document);
     }
 
     public function add(): Response

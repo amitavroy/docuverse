@@ -25,6 +25,7 @@
         "@mui/material": "^5.11.4",
         "@mui/system": "^5.11.4",
         "formik": "^2.2.9",
+        "react-markdown": "^8.0.4",
         "yup": "^0.32.11"
     }
 }

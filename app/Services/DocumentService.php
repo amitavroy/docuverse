@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\ContentCreated;
 use App\Events\DocumentCreated;
 use App\Events\DocumentDeleted;
 use App\Models\Document;
@@ -10,7 +11,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Validation\Rule;
 
 class DocumentService
 {
@@ -69,5 +70,24 @@ class DocumentService
             'status' => true,
             'message' => __('messages.document.delete'),
         ];
+    }
+
+    public function addContentToDocument(Document $document, array $data): Document|MessageBag
+    {
+        $validator = Validator::make($data, [
+            'content' => ['required'],
+            'weight' => ['sometimes', 'numeric'],
+            'type' => ['required', Rule::in(['text'])],
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $document->content()->create($validator->validated());
+
+        event(new ContentCreated());
+
+        return $document;
     }
 }
